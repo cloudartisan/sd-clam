@@ -1,0 +1,53 @@
+h1. Clam Anti-Virus plugin for Server Density
+
+h2. Overview
+
+This plugin will monitor the Clam Anti-Virus.
+
+h2. Manual Installation
+
+* Configure your agent so that it knows about plugins http://www.serverdensity.com/docs/agent/plugins/ 
+* Install the plugin in your sd-agent plugins directory
+* Move Clam.py into that directory 
+* Restart the agent (service sd-agent restart)
+* Head to https://youraccount.serverdensity.com/plugins/ and Add new plugin
+* Add a plugin called Clam
+* Edit the Clam plugin and create groups for the graphs (see the configuration section below)
+
+h2. Manual Configuration
+
+h3. Server Density agent (optional)
+
+The Clam plugin will default to checking @/var/run/clamav/clamd.ctl@ for the clamd socket.  For most people, that will probably be sufficient.  However, if you need to specify a different location for the clamd socket, you can add a configuration variable to @config.cfg@:
+
+<pre>
+clamd_socket: /var/run/clamav/clamd.ctl
+</pre>
+
+h3. Defining Server Density Groups
+
+In Server Density, create the following groups in your Cherokee web server plugin:
+
+<pre>
+Title: Threads
+live
+idle
+max
+idle_timeout
+</pre>
+
+<pre>
+Title: Pools
+pools
+pools_used
+pools_total
+</pre>
+
+<pre>
+Title: Memory
+heap
+mmap
+used
+free
+releasable
+</pre>
